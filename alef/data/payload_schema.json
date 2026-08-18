@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ALEF IPI Payload",
+  "type": "object",
+  "required": ["payload_id", "objective", "text", "target_tool"],
+  "properties": {
+    "payload_id": {
+      "type": "string",
+      "description": "Stable unique identifier, e.g. 'exfil-0001'."
+    },
+    "objective": {
+      "type": "string",
+      "enum": [
+        "data_exfiltration",
+        "reputation_manipulation",
+        "system_disruption",
+        "credential_form_hijacking",
+        "generic_override"
+      ]
+    },
+    "text": {
+      "type": "string",
+      "description": "The injected instruction string as it would appear embedded in page content."
+    },
+    "target_tool": {
+      "type": "string",
+      "description": "The tool the payload attempts to hijack, e.g. 'send_email', 'save_file', 'submit_form', 'navigate', 'click'."
+    },
+    "adversarial_params": {
+      "type": "object",
+      "description": "Ground-truth parameter name -> expected/substring adversarial value, checked by the deterministic action-compliance auditor.",
+      "additionalProperties": { "type": "string" }
+    },
+    "text_compliance_markers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Substrings that count as an explicit textual compliance signal for the rule-based f_TC auditor."
+    },
+    "source": {
+      "type": "string",
+      "description": "Provenance tag, e.g. 'synthetic-illustrative' or 'khodayari-2026-restricted'."
+    }
+  }
+}

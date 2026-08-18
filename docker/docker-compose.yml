@@ -1,0 +1,12 @@
+# Isolated sandbox network by default -- no external network access, matching
+# the paper's Section 7.5 / Section 13 ethical design (real network calls are
+# never required for the mock-provider smoke test this compose file runs).
+services:
+  alef-sandbox:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    network_mode: "none"
+    volumes:
+      - ../runs:/app/runs
+      - ../reports:/app/reports
